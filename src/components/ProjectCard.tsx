@@ -1,47 +1,48 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
 
 const STATUS_TONE: Record<string, string> = {
-  "Now Selling": "bg-primary text-primary-foreground",
-  "Now Leasing": "bg-primary text-primary-foreground",
-  "Renting": "bg-primary text-primary-foreground",
-  "Under Construction": "bg-amber-500 text-white",
+  "Now Selling": "bg-[var(--gold)] text-[var(--gold-foreground)]",
+  "Now Leasing": "bg-[var(--gold)] text-[var(--gold-foreground)]",
+  "Renting": "bg-[var(--gold)] text-[var(--gold-foreground)]",
+  "Under Construction": "bg-foreground text-background",
   "Coming Soon": "bg-foreground text-background",
-  "Past Project": "bg-muted text-muted-foreground",
-  "Fully Rented": "bg-muted text-muted-foreground",
+  "Past Project": "bg-white/90 text-foreground",
+  "Fully Rented": "bg-white/90 text-foreground",
 };
 
 export function ProjectCard({ project }: { project: Project }) {
-  const tone = STATUS_TONE[project.status] ?? "bg-secondary text-secondary-foreground";
+  const tone = STATUS_TONE[project.status] ?? "bg-white/90 text-foreground";
   return (
     <Link
       to="/projects/$slug"
       params={{ slug: project.slug }}
-      className="group bg-card border border-border rounded-2xl overflow-hidden flex flex-col hover:shadow-[0_25px_60px_-30px_rgba(19,67,118,0.45)] hover:-translate-y-1 transition-all"
+      className="group block"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <div className="relative aspect-[4/5] overflow-hidden bg-muted">
         <img
           src={project.thumbnail}
           alt={project.title}
           loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[900ms] ease-out"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
         {project.status && (
-          <span className={`absolute top-4 left-4 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase ${tone}`}>
+          <span className={`absolute top-4 left-4 px-2.5 py-1 text-[10px] font-bold tracking-[0.18em] uppercase ${tone}`}>
             {project.status}
           </span>
         )}
+        <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+          <div className="flex items-end justify-between gap-3">
+            <h3 className="font-heading text-xl md:text-2xl leading-tight">{project.title}</h3>
+            <ArrowUpRight className="w-5 h-5 shrink-0 opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
       </div>
-      <div className="p-6 flex-1 flex flex-col">
-        <h3 className="font-heading text-2xl">{project.title}</h3>
-        <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-3">
-          {project.teaser}
-        </p>
-        <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-          Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </span>
-      </div>
+      <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+        {project.teaser}
+      </p>
     </Link>
   );
 }
