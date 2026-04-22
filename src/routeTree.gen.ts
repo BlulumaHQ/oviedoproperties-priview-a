@@ -9,8 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResidentialRouteImport } from './routes/residential'
+import { Route as RentalRouteImport } from './routes/rental'
+import { Route as CustomerCareRouteImport } from './routes/customer-care'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CompanyRouteImport } from './routes/company'
+import { Route as CommercialRouteImport } from './routes/commercial'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ResidentialRoute = ResidentialRouteImport.update({
+  id: '/residential',
+  path: '/residential',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RentalRoute = RentalRouteImport.update({
+  id: '/rental',
+  path: '/rental',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerCareRoute = CustomerCareRouteImport.update({
+  id: '/customer-care',
+  path: '/customer-care',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyRoute = CompanyRouteImport.update({
+  id: '/company',
+  path: '/company',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialRoute = CommercialRouteImport.update({
+  id: '/commercial',
+  path: '/commercial',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +55,116 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/commercial': typeof CommercialRoute
+  '/company': typeof CompanyRoute
+  '/contact': typeof ContactRoute
+  '/customer-care': typeof CustomerCareRoute
+  '/rental': typeof RentalRoute
+  '/residential': typeof ResidentialRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/commercial': typeof CommercialRoute
+  '/company': typeof CompanyRoute
+  '/contact': typeof ContactRoute
+  '/customer-care': typeof CustomerCareRoute
+  '/rental': typeof RentalRoute
+  '/residential': typeof ResidentialRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/commercial': typeof CommercialRoute
+  '/company': typeof CompanyRoute
+  '/contact': typeof ContactRoute
+  '/customer-care': typeof CustomerCareRoute
+  '/rental': typeof RentalRoute
+  '/residential': typeof ResidentialRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/commercial'
+    | '/company'
+    | '/contact'
+    | '/customer-care'
+    | '/rental'
+    | '/residential'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/commercial'
+    | '/company'
+    | '/contact'
+    | '/customer-care'
+    | '/rental'
+    | '/residential'
+  id:
+    | '__root__'
+    | '/'
+    | '/commercial'
+    | '/company'
+    | '/contact'
+    | '/customer-care'
+    | '/rental'
+    | '/residential'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommercialRoute: typeof CommercialRoute
+  CompanyRoute: typeof CompanyRoute
+  ContactRoute: typeof ContactRoute
+  CustomerCareRoute: typeof CustomerCareRoute
+  RentalRoute: typeof RentalRoute
+  ResidentialRoute: typeof ResidentialRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/residential': {
+      id: '/residential'
+      path: '/residential'
+      fullPath: '/residential'
+      preLoaderRoute: typeof ResidentialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rental': {
+      id: '/rental'
+      path: '/rental'
+      fullPath: '/rental'
+      preLoaderRoute: typeof RentalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer-care': {
+      id: '/customer-care'
+      path: '/customer-care'
+      fullPath: '/customer-care'
+      preLoaderRoute: typeof CustomerCareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company': {
+      id: '/company'
+      path: '/company'
+      fullPath: '/company'
+      preLoaderRoute: typeof CompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial': {
+      id: '/commercial'
+      path: '/commercial'
+      fullPath: '/commercial'
+      preLoaderRoute: typeof CommercialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +177,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommercialRoute: CommercialRoute,
+  CompanyRoute: CompanyRoute,
+  ContactRoute: ContactRoute,
+  CustomerCareRoute: CustomerCareRoute,
+  RentalRoute: RentalRoute,
+  ResidentialRoute: ResidentialRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
