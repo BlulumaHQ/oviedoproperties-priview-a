@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, Calendar } from "lucide-react";
 import { SITE } from "@/lib/site";
 
 export function StickyCTA() {
@@ -9,22 +9,14 @@ export function StickyCTA() {
   return (
     <>
       {/* Desktop: fixed right rail */}
-      <div className="hidden md:flex fixed right-5 top-1/2 -translate-y-1/2 z-30 flex-col gap-3">
+      <div className="hidden md:flex fixed right-5 bottom-8 z-30 flex-col gap-2.5 items-end">
         <Link
           to="/contact"
-          className="group flex items-center gap-2 rounded-full px-5 py-3.5 font-semibold text-sm shadow-[0_15px_35px_-10px_rgba(19,67,118,0.55)] text-white transition-all hover:translate-x-[-2px]"
-          style={{ backgroundColor: "var(--primary-dark)" }}
+          className="btn-gold shadow-[0_18px_45px_-15px_rgba(0,0,0,0.45)]"
         >
-          <MessageCircle className="w-4 h-4" />
-          Request a Consultation
+          <Calendar className="w-4 h-4" />
+          Book Consultation
         </Link>
-        <a
-          href={SITE.phoneHref}
-          className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold bg-background/95 backdrop-blur border border-border text-foreground hover:border-primary"
-        >
-          <Phone className="w-4 h-4" />
-          {SITE.phone}
-        </a>
       </div>
 
       {/* Mobile: bottom bar */}
@@ -32,16 +24,12 @@ export function StickyCTA() {
         <div className="grid grid-cols-2 gap-2 p-3">
           <a
             href={SITE.phoneHref}
-            className="flex items-center justify-center gap-2 rounded-full py-3 font-semibold text-sm border border-border text-foreground"
+            className="btn-outline !py-3"
           >
             <Phone className="w-4 h-4" /> Call
           </a>
-          <Link
-            to="/contact"
-            className="flex items-center justify-center gap-2 rounded-full py-3 font-semibold text-sm text-white"
-            style={{ backgroundColor: "var(--primary-dark)" }}
-          >
-            <MessageCircle className="w-4 h-4" /> Get In Touch
+          <Link to="/contact" className="btn-gold !py-3">
+            <Calendar className="w-4 h-4" /> Book
           </Link>
         </div>
       </div>

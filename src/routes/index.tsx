@@ -1,16 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Building2, Home, Key, CheckCircle2, Phone, Quote } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Star, Search, ClipboardList, Hammer, Key } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { CTABand, TrustBar } from "@/components/Sections";
+import { TrustBar } from "@/components/Sections";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SITE } from "@/lib/site";
 import { PROJECTS, sortProjects } from "@/lib/projects";
 
-// Use real source imagery from oviedoproperties.com
 const HERO_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/Bridgecity_Detail.jpg";
-const RES_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/04/Altus_01-1.jpg";
-const COM_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/King-George-Plaza_01.jpg";
-const RENT_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/The-Heights_01.jpg";
 const ABOUT_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/Bridgecity_02.jpg";
 
 const featured = sortProjects(
@@ -45,177 +41,99 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      {/* HERO — full bleed editorial */}
+      <section className="relative min-h-[100svh] flex items-end overflow-hidden bg-primary text-white">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center scale-105"
           style={{ backgroundImage: `url(${HERO_IMG})` }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/55" aria-hidden />
-        <div className="container-wide relative pt-20 pb-24 md:pt-28 md:pb-36 grid lg:grid-cols-[1.4fr_1fr] gap-12 items-end">
-          <div>
-            <span className="eyebrow !text-primary-foreground/85 before:!bg-primary-foreground/60">
-              Surrey, British Columbia · Property Management Company
-            </span>
-            <h1 className="mt-6 font-heading text-[44px] sm:text-6xl lg:text-7xl xl:text-[88px] leading-[1.02] tracking-tight">
-              Crafting Quality,<br />Creating Legacy.
-            </h1>
-            <p className="mt-7 max-w-xl text-lg text-primary-foreground/85 leading-relaxed">
-              An integrated development and construction company building sustainable residential,
-              commercial, and rental properties across Surrey, BC.
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-black/85"
+          aria-hidden
+        />
+
+        <div className="container-wide relative pb-16 md:pb-24 pt-32 w-full">
+          <div className="max-w-4xl anim-fade-up">
+            <p className="eyebrow !text-[var(--gold)] before:!bg-[var(--gold)]">
+              Surrey · British Columbia
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/residential" className="btn-light">
-                View Our Projects <ArrowRight className="w-4 h-4" />
+            <h1 className="mt-7 font-heading text-[44px] sm:text-6xl md:text-7xl lg:text-[96px] leading-[1.0] tracking-tight">
+              Crafting quality.<br />
+              <span className="italic text-[var(--gold)]">Creating legacy.</span>
+            </h1>
+            <p className="mt-7 max-w-xl text-base md:text-lg text-white/80 leading-relaxed">
+              Premium residential, commercial, and rental real estate — designed,
+              built, and managed by one trusted Surrey-based team.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <Link to="/contact" className="btn-gold">
+                Book Consultation <ArrowUpRight className="w-4 h-4" />
               </Link>
-              <a
-                href={SITE.phoneHref}
-                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold text-sm border border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 transition"
-              >
-                <Phone className="w-4 h-4" /> {SITE.phone}
-              </a>
+              <Link to="/residential" className="btn-ghost-light">
+                Explore Portfolio
+              </Link>
+            </div>
+
+            {/* Trust pill */}
+            <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-white/75">
+              <div className="flex items-center gap-1.5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-[var(--gold)] text-[var(--gold)]" />
+                ))}
+              </div>
+              <span className="text-xs tracking-[0.16em] uppercase">
+                Trusted by 200+ Homeowners & Tenants
+              </span>
             </div>
           </div>
+        </div>
 
-          {/* Quick contact card */}
-          <div className="bg-background text-foreground rounded-2xl p-7 shadow-2xl border border-border max-w-md w-full lg:justify-self-end">
-            <p className="eyebrow">Quick Inquiry</p>
-            <h3 className="font-heading text-2xl mt-3">Tell us about your project</h3>
-            <form
-              className="mt-5 space-y-3"
-              onSubmit={(e) => {
-                e.preventDefault();
-                window.location.href = "/contact";
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Full name"
-                className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email address"
-                className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                required
-              />
-              <select
-                className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                defaultValue=""
-                required
-              >
-                <option value="" disabled>I'm interested in...</option>
-                <option>Residential Development</option>
-                <option>Commercial Development</option>
-                <option>Rental Properties</option>
-                <option>Property Management</option>
-              </select>
-              <button type="submit" className="btn-primary w-full">
-                Request Consultation <ArrowRight className="w-4 h-4" />
-              </button>
-              <p className="text-xs text-muted-foreground text-center">
-                We respond within one business day.
-              </p>
-            </form>
-          </div>
+        {/* Scroll indicator */}
+        <div className="hidden md:flex absolute bottom-6 right-6 items-center gap-3 text-white/60 text-[10px] tracking-[0.3em] uppercase rotate-90 origin-bottom-right">
+          Scroll
+          <span className="w-12 h-px bg-white/40" />
         </div>
       </section>
 
       <TrustBar />
 
-      {/* SERVICES */}
+      {/* SOCIAL PROOF */}
       <section className="section-pad">
         <div className="container-wide">
-          <div className="grid md:grid-cols-[1fr_1.3fr] gap-10 mb-14 items-end">
-            <div>
-              <p className="eyebrow">What We Build</p>
-              <h2 className="font-heading text-4xl md:text-5xl mt-4 leading-[1.05]">
-                Three pillars of real estate, one trusted team.
-              </h2>
-            </div>
-            <p className="text-muted-foreground text-lg leading-relaxed md:pl-10">
-              From the first concept to long-term management, Oviedo Properties delivers thoughtful
-              development across every category — without handing your project off to a stranger.
-            </p>
+          <div className="max-w-2xl">
+            <p className="eyebrow">What Owners Say</p>
+            <h2 className="mt-5 font-heading text-4xl md:text-5xl leading-[1.05]">
+              A reputation built on care<span className="text-[var(--gold)]">.</span>
+            </h2>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="mt-14 grid md:grid-cols-3 gap-8 md:gap-10">
             {[
-              { icon: Home, img: RES_IMG, title: "Residential", desc: "We build more than homes, we create spaces for lasting memories, designed to stand the test of time.", to: "/residential" as const },
-              { icon: Building2, img: COM_IMG, title: "Commercial", desc: "We specialize in building quality and managing retail, industrial, and office spaces, prioritizing the user experiences.", to: "/commercial" as const },
-              { icon: Key, img: RENT_IMG, title: "Rental", desc: "We offer rental homes in desirable neighborhoods, managed by our dedicated in-house team.", to: "/rental" as const },
-            ].map((s) => (
-              <Link
-                key={s.title}
-                to={s.to}
-                className="group bg-card border border-border rounded-2xl overflow-hidden flex flex-col hover:shadow-[0_25px_60px_-30px_rgba(19,67,118,0.45)] hover:-translate-y-1 transition-all"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={s.img}
-                    alt={s.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-                <div className="p-7 flex-1 flex flex-col">
-                  <div className="flex items-center gap-3">
-                    <s.icon className="w-5 h-5 text-primary" />
-                    <h3 className="font-heading text-2xl">{s.title}</h3>
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">{s.desc}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                    View {s.title} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED PROJECTS */}
-      <section className="section-pad bg-surface border-t border-border">
-        <div className="container-wide">
-          <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
-            <div>
-              <p className="eyebrow">Featured Projects</p>
-              <h2 className="font-heading text-4xl md:text-5xl mt-4 leading-[1.05]">
-                Building legacy across the Lower Mainland.
-              </h2>
-            </div>
-            <Link to="/residential" className="btn-primary">
-              View All Projects <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TRUST */}
-      <section className="section-pad">
-        <div className="container-wide">
-          <div className="text-center max-w-2xl mx-auto">
-            <p className="eyebrow justify-center">Trusted by Owners & Tenants</p>
-            <h2 className="font-heading text-4xl md:text-5xl mt-4">A reputation built on care.</h2>
-          </div>
-          <div className="mt-14 grid md:grid-cols-3 gap-6">
-            {[
-              { q: "Oviedo's team treated our build like it was their own home. The attention to finish quality was exceptional.", a: "Residential Owner, Surrey" },
-              { q: "Our retail tenants stayed through construction because the team kept them informed every single week.", a: "Commercial Partner" },
-              { q: "Easiest rental we've ever had. Maintenance is handled in-house and they actually pick up the phone.", a: "Long-term Tenant" },
+              {
+                q: "Oviedo's team treated our build like it was their own home. The attention to finish quality was exceptional.",
+                a: "Residential Owner",
+                where: "Surrey, BC",
+              },
+              {
+                q: "Our retail tenants stayed through construction because the team kept them informed every single week.",
+                a: "Commercial Partner",
+                where: "Lower Mainland",
+              },
+              {
+                q: "Easiest rental we've ever had. Maintenance is handled in-house and they actually pick up the phone.",
+                a: "Long-term Tenant",
+                where: "Surrey, BC",
+              },
             ].map((t, i) => (
-              <div key={i} className="bg-card rounded-2xl p-7 border border-border">
-                <Quote className="w-7 h-7 text-primary/30" />
-                <p className="mt-4 text-foreground/90 leading-relaxed">{t.q}</p>
-                <p className="mt-6 text-sm font-semibold text-muted-foreground border-t border-border pt-4">
-                  — {t.a}
+              <div key={i} className="border-t border-foreground/15 pt-8">
+                <div className="flex gap-1 mb-5">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <Star key={j} className="w-3.5 h-3.5 fill-[var(--gold)] text-[var(--gold)]" />
+                  ))}
+                </div>
+                <p className="font-heading text-xl leading-snug text-foreground">"{t.q}"</p>
+                <p className="mt-6 text-xs tracking-[0.18em] uppercase text-muted-foreground">
+                  {t.a} · <span className="text-foreground/60">{t.where}</span>
                 </p>
               </div>
             ))}
@@ -223,30 +141,128 @@ function HomePage() {
         </div>
       </section>
 
+      {/* VALUE PROPOSITION */}
+      <section className="section-pad bg-surface border-y border-border">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 mb-20 items-end">
+            <div>
+              <p className="eyebrow">Why Oviedo</p>
+              <h2 className="mt-5 font-heading text-4xl md:text-5xl leading-[1.05]">
+                One integrated team. <br />
+                <span className="italic text-[var(--gold)]">Zero handoffs.</span>
+              </h2>
+            </div>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              From land assembly to long-term management, we own every step of the
+              process — so quality, timeline, and trust never get lost between
+              consultants, GCs, and managers.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+            {[
+              { n: "01", t: "Higher Final Value", d: "Thoughtful design and premium finishes that hold their value for decades." },
+              { n: "02", t: "On-Time Delivery", d: "In-house construction means no finger-pointing and predictable timelines." },
+              { n: "03", t: "Less Hassle", d: "One point of contact from your first call to your final keys." },
+              { n: "04", t: "Local Expertise", d: "Surrey-rooted with deep relationships across municipalities and trades." },
+            ].map((b) => (
+              <div key={b.n} className="bg-background p-8 md:p-10">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-[var(--gold)]">{b.n}</span>
+                <h3 className="mt-5 font-heading text-2xl">{b.t}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{b.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED LISTINGS */}
+      <section className="section-pad">
+        <div className="container-wide">
+          <div className="flex items-end justify-between gap-6 mb-14 flex-wrap">
+            <div>
+              <p className="eyebrow">Selected Projects</p>
+              <h2 className="mt-5 font-heading text-4xl md:text-5xl leading-[1.05] max-w-xl">
+                Building legacy across<br />the Lower Mainland.
+              </h2>
+            </div>
+            <Link to="/residential" className="btn-outline">
+              View All Projects <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+            {featured.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section className="section-pad bg-primary text-white relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          aria-hidden
+          style={{
+            backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        <div className="container-wide relative">
+          <div className="max-w-2xl">
+            <p className="eyebrow">How We Work</p>
+            <h2 className="mt-5 font-heading text-4xl md:text-5xl leading-[1.05]">
+              A clear path from <span className="italic text-[var(--gold)]">vision to keys.</span>
+            </h2>
+          </div>
+
+          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-6">
+            {[
+              { icon: Search, n: "01", t: "Discovery", d: "We listen first — your goals, timeline, and budget shape every recommendation." },
+              { icon: ClipboardList, n: "02", t: "Design & Plan", d: "Thoughtful architecture and transparent budgets, approved before a shovel breaks ground." },
+              { icon: Hammer, n: "03", t: "Build", d: "Our in-house construction team delivers craftsmanship with weekly progress updates." },
+              { icon: Key, n: "04", t: "Manage", d: "We don't disappear at handover — long-term management keeps your asset performing." },
+            ].map((s) => (
+              <div key={s.n} className="border-t border-white/15 pt-8">
+                <div className="flex items-center gap-4">
+                  <span className="text-[10px] font-bold tracking-[0.3em] text-[var(--gold)]">{s.n}</span>
+                  <s.icon className="w-5 h-5 text-[var(--gold)]" />
+                </div>
+                <h3 className="mt-5 font-heading text-2xl">{s.t}</h3>
+                <p className="mt-3 text-sm text-white/70 leading-relaxed">{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT */}
-      <section className="section-pad bg-surface border-t border-border">
-        <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
+      <section className="section-pad">
+        <div className="container-wide grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="relative">
             <img
               src={ABOUT_IMG}
               alt="Oviedo Properties development"
               loading="lazy"
-              className="w-full h-auto rounded-2xl object-cover"
+              className="w-full h-auto object-cover aspect-[4/5]"
             />
-            <div className="hidden md:block absolute -bottom-8 -right-8 bg-primary text-primary-foreground rounded-2xl p-6 max-w-[220px] shadow-xl">
-              <p className="font-heading text-4xl">100%</p>
-              <p className="text-sm mt-1 text-primary-foreground/80">In-house construction & management</p>
+            <div className="hidden md:flex flex-col absolute -bottom-10 -right-10 bg-[var(--gold)] text-[var(--gold-foreground)] p-7 max-w-[240px]">
+              <p className="font-heading text-5xl leading-none">100%</p>
+              <p className="text-xs mt-3 tracking-[0.14em] uppercase font-semibold">
+                In-House Construction & Management
+              </p>
             </div>
           </div>
           <div>
-            <p className="eyebrow">About Us</p>
-            <h2 className="font-heading text-4xl md:text-5xl mt-4 leading-[1.05]">
-              Integrated development from the ground up.
+            <p className="eyebrow">About Oviedo</p>
+            <h2 className="mt-5 font-heading text-4xl md:text-5xl leading-[1.05]">
+              Integrated development<br />
+              <span className="italic text-[var(--gold)]">from the ground up.</span>
             </h2>
-            <p className="mt-5 text-muted-foreground text-lg leading-relaxed">
+            <p className="mt-7 text-muted-foreground text-lg leading-relaxed">
               {SITE.description}
             </p>
-            <ul className="mt-7 space-y-3">
+            <ul className="mt-8 space-y-4">
               {[
                 "End-to-end development & construction",
                 "Sustainable design across every property",
@@ -254,19 +270,44 @@ function HomePage() {
                 "Locally rooted in Surrey, British Columbia",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[var(--gold)] mt-0.5 shrink-0" />
                   <span className="text-foreground/85">{item}</span>
                 </li>
               ))}
             </ul>
-            <Link to="/company" className="btn-primary mt-8">
-              Learn More About Us <ArrowRight className="w-4 h-4" />
+            <Link to="/company" className="btn-primary mt-10">
+              Learn More About Us <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      <CTABand />
+      {/* FINAL CTA — strong, contrasting */}
+      <section className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${HERO_IMG})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-primary/90" aria-hidden />
+        <div className="container-wide relative py-24 md:py-36 text-center text-white">
+          <p className="eyebrow justify-center">Begin the Conversation</p>
+          <h2 className="mt-6 font-heading text-4xl md:text-6xl lg:text-7xl leading-[1.05] max-w-3xl mx-auto">
+            Your next chapter starts with a <span className="italic text-[var(--gold)]">conversation.</span>
+          </h2>
+          <p className="mt-6 text-white/75 text-lg max-w-xl mx-auto">
+            Tell us about your project. We'll respond within one business day with a clear path forward.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link to="/contact" className="btn-gold">
+              Book Consultation <ArrowUpRight className="w-4 h-4" />
+            </Link>
+            <a href={SITE.phoneHref} className="btn-ghost-light">
+              Call {SITE.phone}
+            </a>
+          </div>
+        </div>
+      </section>
     </SiteLayout>
   );
 }

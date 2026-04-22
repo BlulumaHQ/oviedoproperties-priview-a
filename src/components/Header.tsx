@@ -1,15 +1,16 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { NAV, SITE } from "@/lib/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { location } = useRouterState();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -19,58 +20,68 @@ export function Header() {
     setOpen(false);
   }, [location.pathname]);
 
+  // On home: transparent over hero. Other pages: always solid.
+  const transparent = isHome && !scrolled;
+  const textOnDark = transparent;
+
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md shadow-[0_2px_20px_-12px_rgba(19,67,118,0.25)]"
-          : "bg-background/60 backdrop-blur-sm"
+      className={`fixed top-0 inset-x-0 z-40 transition-all duration-500 ${
+        transparent
+          ? "bg-transparent"
+          : "bg-background/85 backdrop-blur-xl border-b border-border/60"
       }`}
     >
-      <div className="container-wide flex items-center justify-between" style={{ height: 90 }}>
+      <div
+        className="container-wide flex items-center justify-between"
+        style={{ height: scrolled ? 72 : 84 }}
+      >
         <Link to="/" className="flex items-center gap-3 shrink-0" aria-label="Oviedo Properties home">
-          <div
-            className="flex items-center justify-center rounded-md bg-primary text-primary-foreground font-heading font-bold"
-            style={{ height: 75, width: 75, fontSize: 28 }}
-            aria-hidden
+          <span
+            className={`font-heading text-lg md:text-xl tracking-tight font-bold transition-colors ${
+              textOnDark ? "text-white" : "text-foreground"
+            }`}
           >
-            OP
-          </div>
-          <div className="hidden sm:flex flex-col leading-tight">
-            <span className="font-heading text-base font-bold text-foreground tracking-tight">
-              Oviedo Properties
-            </span>
-            <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Surrey · British Columbia
-            </span>
-          </div>
+            Oviedo
+            <span className={textOnDark ? "text-[var(--gold)]" : "text-[var(--gold)]"}> Properties</span>
+          </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-8" aria-label="Primary">
+        <nav className="hidden lg:flex items-center gap-9" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-[12px] xl:text-[13px] font-semibold tracking-[0.14em] uppercase text-foreground/75 hover:text-primary transition-colors whitespace-nowrap"
-              activeProps={{ className: "text-primary" }}
+              className={`text-[12px] font-medium tracking-[0.18em] uppercase transition-colors whitespace-nowrap ${
+                textOnDark
+                  ? "text-white/85 hover:text-white"
+                  : "text-foreground/70 hover:text-foreground"
+              }`}
+              activeProps={{
+                className: textOnDark ? "!text-[var(--gold)]" : "!text-[var(--gold)]",
+              }}
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <a href={SITE.phoneHref} className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">
-            <Phone className="w-4 h-4" />
+        <div className="hidden lg:flex items-center gap-4">
+          <a
+            href={SITE.phoneHref}
+            className={`text-[12px] font-medium tracking-[0.16em] transition-colors ${
+              textOnDark ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+            }`}
+          >
             {SITE.phone}
           </a>
-          <Link to="/contact" className="btn-primary !py-2.5 !px-5 text-sm">
-            Get In Touch
+          <Link to="/contact" className="btn-gold !py-2.5 !px-5 text-[12px]">
+            Book Consultation
           </Link>
         </div>
 
         <button
-          className="lg:hidden p-2 -mr-2 text-foreground"
+          className={`lg:hidden p-2 -mr-2 ${textOnDark ? "text-white" : "text-foreground"}`}
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -86,20 +97,17 @@ export function Header() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="py-3 text-sm font-semibold tracking-[0.12em] uppercase text-foreground/85 hover:text-primary border-b border-border/60"
-                activeProps={{ className: "text-primary" }}
+                className="py-3 text-sm font-semibold tracking-[0.14em] uppercase text-foreground/85 hover:text-foreground border-b border-border/60"
+                activeProps={{ className: "!text-[var(--gold)]" }}
               >
                 {item.label}
               </Link>
             ))}
-            <a
-              href={SITE.phoneHref}
-              className="mt-4 flex items-center gap-2 text-sm font-semibold text-foreground"
-            >
-              <Phone className="w-4 h-4" /> {SITE.phone}
+            <a href={SITE.phoneHref} className="mt-4 text-sm text-foreground/80">
+              {SITE.phone}
             </a>
-            <Link to="/contact" className="btn-primary mt-4 w-full">
-              Get In Touch
+            <Link to="/contact" className="btn-gold mt-4 w-full">
+              Book Consultation
             </Link>
           </nav>
         </div>
