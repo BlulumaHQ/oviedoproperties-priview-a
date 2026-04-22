@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Oviedo Properties is a leading Surrey, BC real estate development and construction company specializing in sustainable commercial, residential, and rental property solutions.",
+          "From vision to keys — Oviedo Properties designs, builds and manages premium real estate in Surrey, BC. Quality you can feel. Investments built to endure.",
       },
       { property: "og:title", content: "Oviedo Properties | Crafting Quality, Creating Legacy" },
       {
