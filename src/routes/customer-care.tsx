@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Wrench, FileText, MessageCircle, Clock } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CTABand, PageHero } from "@/components/Sections";
-import rentImg from "@/assets/service-rental.jpg";
+const rentImg = "https://oviedoproperties.com/wp-content/uploads/2025/05/The-Heights_01.jpg";
 
 export const Route = createFileRoute("/customer-care")({
   head: () => ({
