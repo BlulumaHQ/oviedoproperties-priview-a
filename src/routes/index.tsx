@@ -2,12 +2,22 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Building2, Home, Key, CheckCircle2, Phone, Quote } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CTABand, TrustBar } from "@/components/Sections";
+import { ProjectCard } from "@/components/ProjectCard";
 import { SITE } from "@/lib/site";
-import heroImg from "@/assets/hero-residential.jpg";
-import resImg from "@/assets/service-residential.jpg";
-import comImg from "@/assets/service-commercial.jpg";
-import rentImg from "@/assets/service-rental.jpg";
-import aboutImg from "@/assets/about-construction.jpg";
+import { PROJECTS, sortProjects } from "@/lib/projects";
+
+// Use real source imagery from oviedoproperties.com
+const HERO_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/Bridgecity_Detail.jpg";
+const RES_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/04/Altus_01-1.jpg";
+const COM_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/King-George-Plaza_01.jpg";
+const RENT_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/The-Heights_01.jpg";
+const ABOUT_IMG = "https://oviedoproperties.com/wp-content/uploads/2025/05/Bridgecity_02.jpg";
+
+const featured = sortProjects(
+  PROJECTS.filter((p) =>
+    ["bridgecity", "altus", "harth", "oviedo-towers-surrey", "white-birch", "ackroyd"].includes(p.slug)
+  )
+).slice(0, 6);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,8 +35,8 @@ export const Route = createFileRoute("/")({
           "Integrated development and construction in Surrey, BC. Residential, commercial, and rental real estate built to last.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: heroImg },
-      { name: "twitter:image", content: heroImg },
+      { property: "og:image", content: HERO_IMG },
+      { name: "twitter:image", content: HERO_IMG },
     ],
   }),
   component: HomePage,
@@ -35,11 +45,11 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO — conversion focus */}
+      {/* HERO */}
       <section className="relative overflow-hidden bg-primary text-primary-foreground">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImg})` }}
+          style={{ backgroundImage: `url(${HERO_IMG})` }}
           aria-hidden
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/55" aria-hidden />
@@ -56,8 +66,8 @@ function HomePage() {
               commercial, and rental properties across Surrey, BC.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/contact" className="btn-light">
-                Start Your Project <ArrowRight className="w-4 h-4" />
+              <Link to="/residential" className="btn-light">
+                View Our Projects <ArrowRight className="w-4 h-4" />
               </Link>
               <a
                 href={SITE.phoneHref}
@@ -115,7 +125,7 @@ function HomePage() {
 
       <TrustBar />
 
-      {/* PROBLEM → SOLUTION (services) */}
+      {/* SERVICES */}
       <section className="section-pad">
         <div className="container-wide">
           <div className="grid md:grid-cols-[1fr_1.3fr] gap-10 mb-14 items-end">
@@ -133,27 +143,9 @@ function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              {
-                icon: Home,
-                img: resImg,
-                title: "Residential",
-                desc: "We build more than homes, we create spaces for lasting memories, designed to stand the test of time.",
-                to: "/residential",
-              },
-              {
-                icon: Building2,
-                img: comImg,
-                title: "Commercial",
-                desc: "We specialize in building quality and managing retail, industrial, and office spaces, prioritizing the user experiences.",
-                to: "/commercial",
-              },
-              {
-                icon: Key,
-                img: rentImg,
-                title: "Rental",
-                desc: "We offer rental homes in desirable neighborhoods, managed by our dedicated in-house team.",
-                to: "/rental",
-              },
+              { icon: Home, img: RES_IMG, title: "Residential", desc: "We build more than homes, we create spaces for lasting memories, designed to stand the test of time.", to: "/residential" as const },
+              { icon: Building2, img: COM_IMG, title: "Commercial", desc: "We specialize in building quality and managing retail, industrial, and office spaces, prioritizing the user experiences.", to: "/commercial" as const },
+              { icon: Key, img: RENT_IMG, title: "Rental", desc: "We offer rental homes in desirable neighborhoods, managed by our dedicated in-house team.", to: "/rental" as const },
             ].map((s) => (
               <Link
                 key={s.title}
@@ -164,8 +156,6 @@ function HomePage() {
                   <img
                     src={s.img}
                     alt={s.title}
-                    width={1280}
-                    height={960}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -186,8 +176,30 @@ function HomePage() {
         </div>
       </section>
 
-      {/* TRUST — testimonials */}
-      <section className="section-pad bg-surface">
+      {/* FEATURED PROJECTS */}
+      <section className="section-pad bg-surface border-t border-border">
+        <div className="container-wide">
+          <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
+            <div>
+              <p className="eyebrow">Featured Projects</p>
+              <h2 className="font-heading text-4xl md:text-5xl mt-4 leading-[1.05]">
+                Building legacy across the Lower Mainland.
+              </h2>
+            </div>
+            <Link to="/residential" className="btn-primary">
+              View All Projects <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featured.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRUST */}
+      <section className="section-pad">
         <div className="container-wide">
           <div className="text-center max-w-2xl mx-auto">
             <p className="eyebrow justify-center">Trusted by Owners & Tenants</p>
@@ -195,18 +207,9 @@ function HomePage() {
           </div>
           <div className="mt-14 grid md:grid-cols-3 gap-6">
             {[
-              {
-                q: "Oviedo's team treated our build like it was their own home. The attention to finish quality was exceptional.",
-                a: "Residential Owner, Surrey",
-              },
-              {
-                q: "Our retail tenants stayed through construction because the team kept them informed every single week.",
-                a: "Commercial Partner",
-              },
-              {
-                q: "Easiest rental we've ever had. Maintenance is handled in-house and they actually pick up the phone.",
-                a: "Long-term Tenant",
-              },
+              { q: "Oviedo's team treated our build like it was their own home. The attention to finish quality was exceptional.", a: "Residential Owner, Surrey" },
+              { q: "Our retail tenants stayed through construction because the team kept them informed every single week.", a: "Commercial Partner" },
+              { q: "Easiest rental we've ever had. Maintenance is handled in-house and they actually pick up the phone.", a: "Long-term Tenant" },
             ].map((t, i) => (
               <div key={i} className="bg-card rounded-2xl p-7 border border-border">
                 <Quote className="w-7 h-7 text-primary/30" />
@@ -220,15 +223,13 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ABOUT credibility */}
-      <section className="section-pad">
+      {/* ABOUT */}
+      <section className="section-pad bg-surface border-t border-border">
         <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <img
-              src={aboutImg}
-              alt="Oviedo Properties construction site in Surrey"
-              width={1280}
-              height={960}
+              src={ABOUT_IMG}
+              alt="Oviedo Properties development"
               loading="lazy"
               className="w-full h-auto rounded-2xl object-cover"
             />
