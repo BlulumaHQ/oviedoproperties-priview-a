@@ -72,6 +72,7 @@
   --border: oklch(0.92 0.006 250);
   --input: oklch(0.92 0.008 250);
   --ring: oklch(0.74 0.13 78);
+  --ink: oklch(0.14 0.02 250);
 }
 
 @layer base {
@@ -243,5 +244,27 @@
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Page loader: draw the Oviedo "O" mark */
+  .page-loader-logo svg path {
+    fill: transparent;
+    stroke: var(--gold);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: loaderDraw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards,
+               loaderFill 0.5s ease-out 1.2s forwards;
+  }
+  .page-loader-logo svg path:nth-child(2) { animation-delay: 0.15s, 1.35s; }
+  .page-loader-logo svg path:nth-child(3) { animation-delay: 0.3s, 1.5s; }
+
+  @keyframes loaderDraw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes loaderFill {
+    to { fill: var(--gold); }
   }
 }
