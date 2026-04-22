@@ -88,7 +88,6 @@ export function Header() {
                 to={item.to}
                 className="py-3 text-sm font-semibold tracking-[0.12em] uppercase text-foreground/85 hover:text-primary border-b border-border/60"
                 activeProps={{ className: "text-primary" }}
-                activeProps={{ className: "text-primary" }}
               >
                 {item.label}
               </Link>
