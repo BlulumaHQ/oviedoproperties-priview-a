@@ -3,7 +3,9 @@ import { CheckCircle2 } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CTABand, PageHero, TrustBar } from "@/components/Sections";
 import { SITE } from "@/lib/site";
-import aboutImg from "@/assets/about-construction.jpg";
+
+const aboutImg = "https://oviedoproperties.com/wp-content/uploads/2025/05/Bridgecity_02.jpg";
+const storyImg = "https://oviedoproperties.com/wp-content/uploads/2025/04/Altus_01-1.jpg";
 
 export const Route = createFileRoute("/company")({
   head: () => ({
@@ -38,7 +40,7 @@ function CompanyPage() {
 
       <section className="section-pad">
         <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
-          <img src={aboutImg} alt="Construction by Oviedo Properties" width={1280} height={960} loading="lazy" className="rounded-2xl w-full" />
+          <img src={storyImg} alt="Construction by Oviedo Properties" loading="lazy" className="rounded-2xl w-full aspect-[4/3] object-cover" />
           <div>
             <p className="eyebrow">Our Story</p>
             <h2 className="font-heading text-4xl md:text-5xl mt-4 leading-[1.05]">

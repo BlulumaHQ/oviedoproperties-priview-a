@@ -4,7 +4,7 @@ import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHero } from "@/components/Sections";
 import { SITE } from "@/lib/site";
-import heroImg from "@/assets/hero-residential.jpg";
+const heroImg = "https://oviedoproperties.com/wp-content/uploads/2025/05/Bridgecity_Detail.jpg";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
