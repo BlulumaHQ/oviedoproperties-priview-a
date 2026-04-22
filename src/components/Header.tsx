@@ -46,14 +46,13 @@ export function Header() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7" aria-label="Primary">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-8" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-[13px] font-semibold tracking-[0.12em] uppercase text-foreground/80 hover:text-primary transition-colors"
+              className="text-[12px] xl:text-[13px] font-semibold tracking-[0.14em] uppercase text-foreground/75 hover:text-primary transition-colors whitespace-nowrap"
               activeProps={{ className: "text-primary" }}
-              activeOptions={{ exact: item.to === "/" }}
             >
               {item.label}
             </Link>
