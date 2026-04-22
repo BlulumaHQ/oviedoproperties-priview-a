@@ -14,11 +14,10 @@ export const SITE = {
 };
 
 export const NAV = [
-  { to: "/", label: "Home" },
   { to: "/residential", label: "Residential" },
   { to: "/commercial", label: "Commercial" },
   { to: "/rental", label: "Rental" },
   { to: "/company", label: "Company" },
-  { to: "/customer-care", label: "Customer Care" },
+  { to: "/customer-care", label: "Care" },
   { to: "/contact", label: "Contact" },
 ] as const;
