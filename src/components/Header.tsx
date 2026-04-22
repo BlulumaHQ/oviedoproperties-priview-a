@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { NAV, SITE } from "@/lib/site";
+import { Logo } from "./Logo";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -37,13 +38,17 @@ export function Header() {
         style={{ height: scrolled ? 72 : 84 }}
       >
         <Link to="/" className="flex items-center gap-3 shrink-0" aria-label="Oviedo Properties home">
+          <Logo
+            className="w-9 h-auto md:w-10 transition-colors"
+            color={textOnDark ? "#ffffff" : "var(--primary)"}
+          />
           <span
-            className={`font-heading text-lg md:text-xl tracking-tight font-bold transition-colors ${
+            className={`font-heading text-base md:text-lg tracking-tight font-bold transition-colors leading-none ${
               textOnDark ? "text-white" : "text-foreground"
             }`}
           >
             Oviedo
-            <span className={textOnDark ? "text-[var(--gold)]" : "text-[var(--gold)]"}> Properties</span>
+            <span className="text-[var(--gold)]"> Properties</span>
           </span>
         </Link>
 
