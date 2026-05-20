@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CTABand } from "@/components/Sections";
-import { getProject, PROJECTS } from "@/lib/projects";
+import { getProject, PROJECTS, type Project } from "@/lib/projects";
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }) => {
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function ProjectDetailPage() {
-  const { project } = Route.useLoaderData();
+  const { project } = Route.useLoaderData() as { project: Project };
   const backTo =
     project.categories[0] === "commercial"
       ? "/commercial"
@@ -92,7 +92,7 @@ function ProjectDetailPage() {
                 <p className="text-[11px] tracking-[0.18em] font-semibold text-muted-foreground uppercase">
                   {k}
                 </p>
-                <p className="mt-2 font-heading text-xl text-foreground">{v}</p>
+                <p className="mt-2 font-heading text-xl text-foreground">{String(v)}</p>
               </div>
             ))}
             {project.externalUrl && (
