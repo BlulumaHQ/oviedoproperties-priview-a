@@ -92,7 +92,7 @@ function ProjectDetailPage() {
                 <p className="text-[11px] tracking-[0.18em] font-semibold text-muted-foreground uppercase">
                   {k}
                 </p>
-                <p className="mt-2 font-heading text-xl text-foreground">{v}</p>
+                <p className="mt-2 font-heading text-xl text-foreground">{String(v)}</p>
               </div>
             ))}
             {project.externalUrl && (
